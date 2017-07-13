@@ -1,0 +1,39 @@
+<!DOCTYPE>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>lens.js Templating Demo</title>
+  <style type="text/css">
+  </style>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../lens.js"></script>
+</head>
+<body>
+
+<div id="main"></div>
+
+<script type="text/html" id="template:main">
+[[# {main}
+
+    Renders the main part of the demo, which include()'s
+    other templates for showing off that little gem       ]]
+
+<div class="hello">[[ include('hello-world'); ]]</div>
+<p>This is [[= _.project.name ]]</p>
+</script>
+
+<script type="text/html" id="template:hello-world">
+<h2>Hello, World</h2>
+</script>
+
+<script type="text/javascript">
+$(function () {
+  $('#main').template('main', {
+    project: {
+      name: 'lens.js'
+    }
+  });
+});
+</script>
+</body>
+</html>
