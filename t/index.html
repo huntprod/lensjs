@@ -10,9 +10,50 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
+  <script src="../lens.js"></script>
   <script src="../strftime.js"></script>
 
   <script src="q/unit.js"></script>
+  <script src="template.js"></script>
   <script src="strftime.js"></script>
+
+<script type="text/html" id="template:text">
+Hello, World.
+</script>
+
+<script type="text/html" id="template:vars">
+Hello, [[= _.name ]]!
+</script>
+
+<script type="text/html" id="template:fibonacci">
+1 1 [[ var a,b,t; for (a=1, b=2; b<(_.max||15); t=a, a=b, b=t+a) { ]][[= b ]] [[ } ]]
+</script>
+
+<script type="text/html" id="template:includer">
+[[ include('text'); ]]
+-----
+[[ include('vars', { name: 'World' }); ]]
+</script>
+
+<script type="text/html" id="template:loop-include">
+[[
+    for (var i = 0; i < _.max; i++) {
+      include('text');
+    }
+]]
+</script>
+
+<script type="text/html" id="template:escape-html">
+h:          [[= lens.h(_.html) ]]
+escapeHTML: [[= lens.escapeHTML(_.html) ]]
+</script>
+
+<script type="text/html" id="template:maybe">
+x = [[= lens.maybe(_.x, '(not given)') ]]
+</script>
+
+<script type="text/html" id="template:url">
+[[= lens.u(_.v) ]]
+</script>
 </body>
 </html>

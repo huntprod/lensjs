@@ -89,8 +89,8 @@
          */
         escapeHTML: function (s) {
           var t = document.createElement('textarea');
-          t.innerHTML = s;
-          return t.innerText.replace(/"/g, '&quot;');
+          t.innerText = s;
+          return t.innerHTML.replace(/"/g, '&quot;');
         },
 
         /* include(template)
@@ -133,14 +133,17 @@
     };
   };
 
-  if (jQuery) {
+  if (typeof(jQuery) !== 'undefined') {
     jQuery.template = template;
 
     jQuery.fn.template = function (name, data) {
       this.html(template(name, data));
     };
 
-  } else if (window) {
+  } else if (typeof(window) !== 'undefined') {
     window.template = template;
+
+  } else {
+    throw 'neither jQuery or top-level window object were found; unsure where to attach template()...';
   }
 })();
