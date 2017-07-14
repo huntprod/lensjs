@@ -12,6 +12,12 @@
       '\n1 1 2 3 5 8 13 21 34 55 89 \n', 'looping construct works');
   });
 
+  QUnit.test("[[: ... :]] whitespace trimming", function (Ω) {
+    Ω.equal(template('whitespace'),
+      'full|left\n|\nright',
+      'handles whitespace correctly');
+  });
+
   QUnit.test("template inclusion", function (Ω) {
     Ω.equal(template('includer'), '\n\nHello, World.\n\n-----\n\nHello, World!\n\n',
       'simple template inclusion works');

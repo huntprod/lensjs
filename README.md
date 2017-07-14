@@ -77,6 +77,22 @@ To print a list of the numbers from 1 to 10:
 </script>
 ```
 
+By default, whitespace before `[[` and after `]]` is preserved.
+If you want to drop it, use `[[:` and `:]]`, like this:
+
+```
+<script type="text/html" id="template:numbers">
+<ul>
+  [[: for (var i = 1; i = 10; i++) { :]]
+  <li>[[= i ]]</li>
+  [[: } :]]
+</ul>
+</script>
+```
+
+Which will but the `<ul>` up to the first `<li>`, each `</li>` up
+to the subsequent `<li>`, and but the `</ul>` to the last `</li>`.
+
 Contributing
 ------------
 This code is licensed MIT.  Enjoy.

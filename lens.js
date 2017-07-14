@@ -33,6 +33,15 @@
         break;
       }
 
+      if (tokens[2][0] == ':') { /* trim preceeding literal */
+        tokens[1] = tokens[1].replace(/\s+$/, '');
+        tokens[2] = tokens[2].substr(1);
+      }
+      if (tokens[2][tokens[2].length - 1] == ':') { /* trim following literal */
+        tokens[3] = tokens[3].replace(/^\s+/, '');
+        tokens[2] = tokens[2].substr(0, tokens[2].length-2);
+      }
+
       code.push('__ += '+str(tokens[1])+';');
       if (tokens[2][0] == '=') {
         code.push('__ += ('+tokens[2].replace(/^=\s*/, '')+');');

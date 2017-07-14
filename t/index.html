@@ -29,6 +29,20 @@ Hello, [[= _.name ]]!
 1 1 [[ var a,b,t; for (a=1, b=2; b<(_.max||15); t=a, a=b, b=t+a) { ]][[= b ]] [[ } ]]
 </script>
 
+<script type="text/html" id="template:whitespace">
+[[: if (true) { :]]
+full
+[[: } :]]
+|
+[[: if (true) { :]]
+left
+[[ } :]]
+|
+[[: if (true) { ]]
+right
+[[: } :]]
+</script>
+
 <script type="text/html" id="template:includer">
 [[ include('text'); ]]
 -----
