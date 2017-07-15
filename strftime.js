@@ -1,5 +1,5 @@
 ;(function () {
-  window.strftime = function (fmt, d) {
+  var strftime = function (fmt, d) {
     if (!(d instanceof Date)) {
       var _d = new Date();
       if (!isNaN(d)) {
@@ -337,5 +337,8 @@
       s += fmt[i];
     }
     return s;
-  }
+  };
+
+  Lens.strftime = strftime;
+  window.strftime = strftime;
 })();

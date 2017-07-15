@@ -3,6 +3,7 @@
   var __templates = {};
   var template = function (name, data) {
     if (!(name in __templates)) {
+      Lens.log.debug('template {%s} not found in the cache; compiling from source.', name);
       __templates[name] = compile(name);
     }
 
@@ -13,6 +14,7 @@
     name = name.toString();
     var script = document.getElementById('template:'+name);
     if (!script) {
+      Lens.log.error('unable to find a <script> element with id="template:%s"', name);
       return function () {
         throw "Template {"+name+"} not found";
       };
@@ -137,6 +139,7 @@
       lens.h = lens.escapeHTML;
       var include = lens.include;
 
+      Lens.log.debug('evaluating the {%s} template', name);
       eval(code);
       return __;
     };

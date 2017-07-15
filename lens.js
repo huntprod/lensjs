@@ -1,8 +1,41 @@
+var Lens = {};
+;(function () {
+
+  var nil = function () { };
+
+  if (!console) {
+    console = { log: nil };
+  }
+
+  var log = {
+    debug: nil,
+    info:  nil,
+    warn:  nil,
+    error: nil,
+
+    level: function (level) {
+      log.debug = nil;
+      log.info  = nil;
+      log.warn  = nil;
+      log.error = nil;
+
+      switch (level) {
+      case 'debug': log.debug = console.log;
+      case 'info':  log.info  = console.log;
+      case 'warn':  log.warn  = console.log;
+      case 'info':  log.info  = console.log;
+      }
+    }
+  };
+
+  Lens.log = log;
+})()
 ;(function () {
 
   var __templates = {};
   var template = function (name, data) {
     if (!(name in __templates)) {
+      Lens.log.debug('template {%s} not found in the cache; compiling from source.', name);
       __templates[name] = compile(name);
     }
 
@@ -13,6 +46,7 @@
     name = name.toString();
     var script = document.getElementById('template:'+name);
     if (!script) {
+      Lens.log.error('unable to find a <script> element with id="template:%s"', name);
       return function () {
         throw "Template {"+name+"} not found";
       };
@@ -137,6 +171,7 @@
       lens.h = lens.escapeHTML;
       var include = lens.include;
 
+      Lens.log.debug('evaluating the {%s} template', name);
       eval(code);
       return __;
     };
@@ -157,7 +192,7 @@
   }
 })();
 ;(function () {
-  window.strftime = function (fmt, d) {
+  var strftime = function (fmt, d) {
     if (!(d instanceof Date)) {
       var _d = new Date();
       if (!isNaN(d)) {
@@ -495,5 +530,8 @@
       s += fmt[i];
     }
     return s;
-  }
+  };
+
+  Lens.strftime = strftime;
+  window.strftime = strftime;
 })();
