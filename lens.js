@@ -23,7 +23,7 @@ var Lens = {};
       case 'debug': log.debug = console.log;
       case 'info':  log.info  = console.log;
       case 'warn':  log.warn  = console.log;
-      case 'info':  log.info  = console.log;
+      case 'error': log.error = console.log;
       }
     }
   };
