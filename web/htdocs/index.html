@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+<meta name="generator" content="verse" />
+<title>lens.js</title>
+<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,700,900">
+<link rel="alternate home" type="application/rss+xml" title="lens.js - RSS feed" href="/feed.xml">
+
+<script src="https://use.typekit.net/sts1bev.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script
+</head>
+<body id="landing">
+  <nav>
+    <img src="/images/lens.png">
+    <div>
+      <li><a href="/">home</a></li>
+      <li><a href="/blog">blog</a></li>
+      <li><a href="/docs">docs</a></li>
+      <li><a href="https://github.com/huntprod/lensjs" target="_blank">code</a></li>
+    </div>
+  </nav>
+
+  <header>
+    <div>
+      <h1>lens.js<span>making web development fun.</span></h1>
+    </div>
+  </header>
+
+  <main>
+    <div><div id="intro">
+  <p>Wouldn't it be fun to build a web application and focus more on the app
+  itself and less on the framework and build tools?</p>
+</div>
+
+<div id="highlight">
+  <div class="intro">Hello, World!</div>
+  <a href="/blog/first-breath">Introducing Lens.js</a>
+  <div class="outro">because you deserve to have fun.</div>
+</div>
+
+<div id="getting-started">
+  <h2>Templating</h2>
+
+  <p>Sometimes you need to draw things in HTML, with data from REST calls,
+  or Javascript computations.  Lens provides a templating implementation
+  that lets you sprinkle real Javascript code throughout your HTML
+  structure, and provides a method of binding data on a per-render
+  basis.</p>
+
+  <pre><code>&lt;script type="text/html" id="<em>template:hello</em>"&gt;
+<em>[[ if (_.name) { ]]</em>
+  &lt;p&gt;Hello, <em>[[= _.name ]]</em>!&lt;/p&gt;
+<em>[[ } else { ]]</em>
+  &lt;p&gt;Hello, World!&lt;/p&gt;
+<em>[[ } ]]</em>
+&lt;/script&gt;</code></pre>
+
+  <p>Read more in the <a href="/docs#template">documentation</a>.</p>
+
+  <h2>Formatting Dates and Times</h2>
+
+  <p>Javascript has lacked a <code>strftime()</code> call for too long.
+  Lens provides you one, with the same semantics as the (POSIX-compliant)
+  GNU libc implementation.</p>
+
+  <pre><code>Lens.strftime("%a, %b %d %Y at %I:%M %P", new Date());
+    // something like "Tue, Jul 18 2017 at 9:20 am"</code></pre>
+
+  <p>Read more in the <a href="/docs#strftime">documentation</a>.</p>
+
+</div>    </div>
+  </main>
+
+  <footer>
+    <div>
+      <p>Powered by <a href="http://verse.jameshunt.us" target="_blank">Verse</a></p>
+    </div>
+  </footer>
+</body>
+</html>

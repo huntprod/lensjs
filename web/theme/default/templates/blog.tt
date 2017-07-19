@@ -1,0 +1,10 @@
+<ul id="blog">
+  [% FOR article IN articles %]
+  <li>
+    <div class="flair" style="background-image: url(/images/[% article.attrs.image %].jpg)"></div>
+    <span class="dated">[% article.attrs.dated %]</span>
+    <h2><a href="/blog/[% article.attrs.permalink %]">[% article.attrs.title %]</a></h2>
+    [% article.attrs.teaser %]
+  </li>
+  [% END %]
+</ul>

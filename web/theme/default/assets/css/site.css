@@ -1,0 +1,310 @@
+html, body, div, span, applet, object, iframe, h1,
+h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr,
+acronym, address, big, cite, code, del, dfn, em,
+img, ins, kbd, q, s, samp, small, strike, strong,
+sub, sup, tt, var, b, u, i, center, dl, dt, dd,
+ol, ul, li, fieldset, form, label, legend, table,
+caption, tbody, tfoot, thead, tr, th, td, article,
+aside, canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby,
+section, summary, time, mark, audio, video {
+	margin: 0; padding: 0; border: 0;
+	font-size: 100%; font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+html, body { height: 100%; }
+body { line-height: 1; }
+nav, ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ''; content: none; }
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body {
+  font-family: ratio, sans-serif;
+  font-style: normal;
+  font-weight: 200;
+}
+body > nav,
+body > header,
+body > main h1, body > main h2, body > main h3,
+body > main h4, body > main h5, body > main h6 {
+  font-family: korolev-compressed, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+body > nav    > div,
+body > header > div,
+body > main   > div,
+body > footer > div {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+body > nav {
+  color: #000;
+  background-color: #c1fd33;
+  border-bottom: 2px solid #ade32d;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  text-align: right;
+  font-weight: 700;
+}
+body > nav img {
+  float: left;
+  padding: 16px;
+}
+body > nav li {
+  display: inline-block;
+
+  padding: 6pt 9pt;
+}
+body > nav a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 18pt;
+}
+
+body > header h1 {
+  font-size: 96pt;
+  letter-spacing: -10px;
+  margin: 0.5em 0 0.25em 0;
+}
+body > header h1 > span {
+  font-size: 42pt;
+  letter-spacing: 0;
+  padding-left: 10.5pt;
+  color: #8b0;
+}
+body         > header { visibility: hidden;  }
+body#landing > header { visibility: visible; }
+
+body > main aside,
+body > main p,
+body > main td,
+body > main th,
+body > main li {
+  font-size: 18pt;
+  line-height: 1.4em;
+}
+
+body > main aside,
+body > main p,
+body > main ul,
+body > main ol,
+body > main table {
+  margin: 2em 0;
+}
+
+body > main a {
+  text-decoration: none;
+  color: #8b0;
+  border-bottom: 2px dotted #8b0;
+}
+
+body > main aside em,
+body > main aside i,
+body > main p em,
+body > main p i {
+  font-style: italic;
+}
+
+body > main aside strong,
+body > main aside b,
+body > main p strong,
+body > main p b {
+  font-weight: bold;
+}
+
+body > main ul,
+body > main ol {
+  padding-left: 2em;
+}
+body > main li:before {
+  color: #8b0;
+}
+body > main ul li:before {
+  content: '- ';
+  text-align: left;
+}
+body > main ol {
+  counter-reset: item;
+}
+body > main ol li {
+  display: block;
+}
+body > main ol li:before {
+  content: counter(item) ". ";
+  counter-increment: item;
+}
+
+body > main aside code,
+body > main p code,
+body > main table code {
+  font-family: monospace;
+  color: crimson;
+  font-weight: bold;
+  background-color: #eee ;
+  font-size: 90%;
+}
+
+body > main aside samp,
+body > main p samp {
+  color: indigo;
+  font-weight: bold;
+  white-space: pre;
+}
+body > main aside samp::before,
+body > main p samp::before,
+body > main aside samp::after,
+body > main p samp::after {
+  content: "\"";
+}
+
+body > main aside {
+  font-style: italic;
+}
+body > main aside::before {
+  content: "(";
+}
+body > main aside::after {
+  content: ")";
+}
+
+body > main pre > code {
+  display: block;
+  padding: 9px 12px 9px 24px;
+  margin: 1em 0;
+
+  position: relative;
+  left: -32px;
+
+  font: 12.5pt/17pt monospace;
+  white-space: pre-wrap;
+
+  border: none;
+  border-left: 8px solid #8b0;
+}
+
+body > main pre > code em,
+body > main pre > code tt {
+  color: #8b0;
+  color: crimson;
+  font-weight: bold;
+}
+
+body > main table.definitions tr:nth-child(2n+1) {
+  background-color: #eee;
+}
+body > main table.definitions tr > td {
+  padding: 1em;
+}
+body > main table.definitions tr > td:first-child {
+  font-weight: bold;
+  width: 1ex; /* force "%a %A" to line wrap */
+}
+
+body > main table.strftime span.flag {
+  border-radius: 3px;
+  font-size: 10pt;
+  padding: 4px;
+  color: white;
+  background-color: indigo;
+  font-family: monospace;
+}
+
+body > main #highlight {
+  border: 1px dashed #ccc;
+  padding: 1em;
+  background-color: #f8f8f8;
+}
+body > main #highlight .intro,
+body > main #highlight .outro {
+  text-align: center;
+  font: 14pt/17pt ratio, sans-serif;
+}
+body > main #highlight a {
+  font: 28pt/36pt ratio, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  color: #8b0;
+  border: none;
+}
+
+h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  font-family: korolev-compressed, sans-serif;
+  color: #8b0;
+  text-shadow: 2px 2px 3px #ccc;
+  letter-spacing: -2px;
+}
+
+body article > h2,
+body div > h2 {
+  font-size: 48pt;
+  line-height: 64pt;
+}
+body div > h2,
+body div > h3,
+body div > h4,
+body div > h5,
+body div > h6 {
+  margin: 2em 0 0 0;
+}
+
+body div > h3 {
+  font-size: 36pt;
+  line-height: 46pt;
+}
+
+body #blog {
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+body #blog li .flair {
+  width: 240px;
+  height: 360px;
+  background-color: #c1fd33;
+  margin: 0 16px 16px 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  box-shadow: 2px 2px 3px #ccc;
+  float: left;
+  clear: left;
+}
+body #blog li > h2 {
+  font-size: 48pt;
+  line-height: 48pt;
+  margin: 0;
+}
+body #blog li > h2 a {
+  color: inherit;
+  border: inherit;
+}
+body #blog li p {
+  margin: 1em 0;
+}
+
+body > footer {
+  color: #ccc;
+  font-size: 16pt;
+}
+body > footer p {
+  font-size: 60%;
+  padding: 2em 0;
+}
+body > footer a {
+  text-decoration: none;
+  color: #98c;
+}

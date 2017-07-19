@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+<meta name="generator" content="verse" />
+
+[% if dometa %]
+<meta name="twitter:card"       content="summary">
+[% if site.id.twitter %]
+<meta name="twitter:site"       content="@[% site.id.twitter %]">
+[% end %]
+
+<meta property="og:type"        content="article">
+<meta property="og:title"       content="[% article.attrs.title %]">
+<meta property="og:site_name"   content="[% site.title %]">
+<meta property="og:url"         content="[% site.canon %]/writings/[% article.attrs.permalink %].html">
+
+[% if article.attrs.thumb %]
+<meta property="og:image"       content="[% site.canon %]/content/wrt/stack.jpg">
+
+[% end %]
+<meta property="og:description" content="[% filter collapse %]
+[% if article.attrs.abstract %][% article.attrs.abstract %]
+[% else %]I'm sure it's enthralling and interesting[% end %]
+[% end %]">
+[% if site.id.facebook %]
+<meta property="article:author" content="[% site.id.facebook %]">
+[% end %]
+
+<title>[% article.attrs.title %] - [% site.title %]</title>
+
+[% else %]
+<title>[% site.title %]</title>
+
+[% end %]
+<link rel="stylesheet" href="[% site.url %]/css/site.css">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,700,900">
+<link rel="alternate home" type="application/rss+xml" title="[% site.title %] - RSS feed" href="[% site.url %]/feed.xml">
+
+<script src="https://use.typekit.net/sts1bev.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script
+</head>
+<body[% IF wrap %] id="[% wrap %]"[% END %]>
+  <nav>
+    <img src="/images/lens.png">
+    <div>
+      <li><a href="[% site.url %]/">home</a></li>
+      <li><a href="[% site.url %]/blog">blog</a></li>
+      <li><a href="[% site.url %]/docs">docs</a></li>
+      <li><a href="https://github.com/huntprod/lensjs" target="_blank">code</a></li>
+    </div>
+  </nav>
+
+  <header>
+    <div>
+      <h1>lens.js<span>making web development fun.</span></h1>
+    </div>
+  </header>
+
+  <main>
+    <div>
+      [% content %]
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <p>Powered by <a href="http://verse.jameshunt.us" target="_blank">Verse</a></p>
+    </div>
+  </footer>
+</body>
+</html>

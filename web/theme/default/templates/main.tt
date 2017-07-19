@@ -1,0 +1,43 @@
+[% wrap = "landing" %]
+<div id="intro">
+  <p>Wouldn't it be fun to build a web application and focus more on the app
+  itself and less on the framework and build tools?</p>
+</div>
+
+<div id="highlight">
+  <div class="intro">[% articles.0.attrs.intro %]</div>
+  <a href="/blog/[% articles.0.attrs.permalink %]">[% articles.0.attrs.title %]</a>
+  <div class="outro">[% articles.0.attrs.outro %]</div>
+</div>
+
+<div id="getting-started">
+  <h2>Templating</h2>
+
+  <p>Sometimes you need to draw things in HTML, with data from REST calls,
+  or Javascript computations.  Lens provides a templating implementation
+  that lets you sprinkle real Javascript code throughout your HTML
+  structure, and provides a method of binding data on a per-render
+  basis.</p>
+
+  <pre><code>&lt;script type="text/html" id="<em>template:hello</em>"&gt;
+<em>[[ if (_.name) { ]]</em>
+  &lt;p&gt;Hello, <em>[[= _.name ]]</em>!&lt;/p&gt;
+<em>[[ } else { ]]</em>
+  &lt;p&gt;Hello, World!&lt;/p&gt;
+<em>[[ } ]]</em>
+&lt;/script&gt;</code></pre>
+
+  <p>Read more in the <a href="/docs#template">documentation</a>.</p>
+
+  <h2>Formatting Dates and Times</h2>
+
+  <p>Javascript has lacked a <code>strftime()</code> call for too long.
+  Lens provides you one, with the same semantics as the (POSIX-compliant)
+  GNU libc implementation.</p>
+
+  <pre><code>Lens.strftime("%a, %b %d %Y at %I:%M %P", new Date());
+    // something like "Tue, Jul 18 2017 at 9:20 am"</code></pre>
+
+  <p>Read more in the <a href="/docs#strftime">documentation</a>.</p>
+
+</div>

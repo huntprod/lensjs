@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>lens.js</title>
+  <link href="http://lensjs.jameshunt.us/rss.xml" rel="self" />
+  <link href="http://lensjs.jameshunt.us" />
+
+  <updated>2017-07-26T00:00:00</updated>
+  <id>http://lensjs.jameshunt.us</id>
+  <author><name>James Hunt</name></author>
+  <generator uri="http://verse.jameshunt.us/">Verse</generator>
+<entry>
+    <title><![CDATA[Introducing Lens.js]]></title>
+    <link href="/writings/first-breath.html?rss" />
+    <id>/writings/first-breath.html</id>
+    <updated>2017-07-26T00:00:00</updated>
+    <content type="html"><![CDATA[<p>I've been in the web game for quite a while.  Started in grade school on
+Angelfire, moved up from HTML 2.0, through 3.2 and the dHTML days.  I learned
+Javascript.  I learned CSS 2.0, then 2.1, then 3.0</p>
+
+<p>I survived the browser wars.</p>
+
+<p>I've been writing the same Javascript over and over again, from project to
+project.  It's wasteful, and it's sad, but no more.  Now it's time to
+unleash <strong>lens.js</strong>.</p>
+
+<p>There are lots of frameworks out there, but too many of them assume you
+don't know what you are doing and attempt to isolate you from the browser.
+They erect a big old software wall and say <em>you can play in here, but not
+out there.</em>.</p>
+
+<p>I want a framework that lets me experiment, to try out new things.</p>
+
+<p>To that end, <strong>lens.js</strong> is built to:</p>
+
+<ol>
+<li>stay out of the way</li>
+<li>help, not hinder</li>
+<li>provide small, sharp tools</li>
+</ol>
+
+<p>If you want to get involved, head over to <a href="https://github.com/huntprod/lensjs">Github</a> and check out the
+code.</p>
+
+<p>To get started using <strong>lens.js</strong>, check out the
+<a href="/docs">documentation</a>.</p>]]></content>
+  </entry></feed>

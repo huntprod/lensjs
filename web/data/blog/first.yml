@@ -1,0 +1,48 @@
+# vim:ft=markdown:tw=76
+title:     Introducing Lens.js
+format:    markdown
+permalink: first-breath
+featured:  yes
+dated:     Jul 26 2017
+intro:     Hello, World!
+outro:     because you deserve to have fun.
+image:     10
+--- |-
+I've been in the web game for quite a while.  Started in grade school on
+Angelfire, moved up from HTML 2.0, through 3.2 and the dHTML days.  I learned
+Javascript.  I learned CSS 2.0, then 2.1, then 3.0
+
+I survived the browser wars.
+
+--- |-
+I've been in the web game for quite a while.  Started in grade school on
+Angelfire, moved up from HTML 2.0, through 3.2 and the dHTML days.  I learned
+Javascript.  I learned CSS 2.0, then 2.1, then 3.0
+
+I survived the browser wars.
+
+I've been writing the same Javascript over and over again, from project to
+project.  It's wasteful, and it's sad, but no more.  Now it's time to
+unleash <strong>lens.js</strong>.
+
+There are lots of frameworks out there, but too many of them assume you
+don't know what you are doing and attempt to isolate you from the browser.
+They erect a big old software wall and say <em>you can play in here, but not
+out there.</em>.
+
+I want a framework that lets me experiment, to try out new things.
+
+To that end, <strong>lens.js</strong> is built to:
+
+  1. stay out of the way
+  2. help, not hinder
+  3. provide small, sharp tools
+
+If you want to get involved, head over to [Github][gh] and check out the
+code.
+
+To get started using <strong>lens.js</strong>, check out the
+[documentation][docs].
+
+[gh]:    https://github.com/huntprod/lensjs
+[docs]:  /docs

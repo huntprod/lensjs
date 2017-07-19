@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+<meta name="generator" content="verse" />
+<title>lens.js</title>
+<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,700,900">
+<link rel="alternate home" type="application/rss+xml" title="lens.js - RSS feed" href="/feed.xml">
+
+<script src="https://use.typekit.net/sts1bev.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script
+</head>
+<body>
+  <nav>
+    <img src="/images/lens.png">
+    <div>
+      <li><a href="/">home</a></li>
+      <li><a href="/blog">blog</a></li>
+      <li><a href="/docs">docs</a></li>
+      <li><a href="https://github.com/huntprod/lensjs" target="_blank">code</a></li>
+    </div>
+  </nav>
+
+  <header>
+    <div>
+      <h1>lens.js<span>making web development fun.</span></h1>
+    </div>
+  </header>
+
+  <main>
+    <div><div id="docs">
+  <h2 id="template">Templating</h2>
+
+  <p>Sometimes you need to draw things in HTML, with data from REST calls,
+  or Javascript computations.  Templating via the <code>template()</code>
+  function.  Templates are defined inside of <code>&lt;script&gt;</code>
+  tags that have a <code>type</code> attribute of <code>text/html</code>.
+  These script are inert; the browser will just treat them as a handy
+  container for DOM elements, which is <strong>exactly</strong> what we
+  want.</p>
+
+  <pre><code>&lt;script type="text/html" id="<em>template:hello</em>"&gt;
+<em>[[ if (_.name) { ]]</em>
+  &lt;p&gt;Hello, <em>[[= _.name ]]</em>!&lt;/p&gt;
+<em>[[ } else { ]]</em>
+  &lt;p&gt;Hello, World!&lt;/p&gt;
+<em>[[ } ]]</em>
+&lt;/script&gt;</code></pre>
+
+  <p>In template code, anything inside of <code>[[</code> and
+  <code>]]</code> is just regular Javascript, and anything outside if
+  equivalent to a <em>print</em> operation.  Rendering a template entails
+  executing the Javascript bits as a single script, and printing all of the
+  literal bits when it's their turn to be printed.</p>
+
+  <p>A template without data isn't much of a template, so we have the
+  ubiquitous <code>_</code> object.  When you go to render a template to get
+  the HTML out, you pass in a data object that will <em>become</em>
+  <code>_</code>, like this:</p>
+
+  <pre><code>$('#main').template('hello', {
+  name: 'James'
+});</code></pre>
+
+  <p>When the <em>hello</em> template execute, <code>_</code> will be bound
+  to the second argument passed, giving <code>_.name</code> the value
+  <code>"James"</code>.  The template will populate our <code>#main</code>
+  element with the following HTML:
+
+  <pre><code>&lt;p&gt;Hello, James!&lt;/p&gt;</code></pre>
+
+  <aside>Incidentally, the first argument to <code>template()</code> is the
+  name of our template, which will be prefixed with <code>template:</code>
+  and used to find the <code>&lt;script&gt;</code> tag that contains our
+  template source.</aside>
+
+  <h2 id="strftime">Formatting Dates and Times</h2>
+
+  <p>Javascript has lacked a <code>strftime()</code> call for too long.
+  Lens provides you one, with the same semantics as the (POSIX-compliant)
+  GNU libc implementation.</p>
+
+  <pre><code>Lens.strftime("%a, %b %d %Y at %I:%M %P", new Date());
+    // something like "Tue, Jul 18 2017 at 9:20 am"</code></pre>
+
+  <p>The format string is made up of <em>format specifiers</em> and literal
+  text.  Format specifiers start with a <code>%</code> and are followed by
+  one or more alphabetic code characters (detailed in the table below).  A
+  literal percent sign is double-encoded, as <code>%%</code>.</p>
+
+  <table class="strftime definitions">
+  <tbody>
+    <tr><td>%%</td>
+        <td>A literal '%' character</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%a %A</td>
+        <td>Weekday name.<br>
+            <code>%a</code> prints an abbreviation ("Wed").<br>
+            <code>%A</code> prints the full name ("Wednesday").</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%b %B</td>
+        <td>Month name.<br>
+            <code>%b</code> prints an abbreviation ("Mar").<br>
+            <code>%B</code> prints the full name ("March").</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%c</td>
+        <td>The preferred representation of the date and time.</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%C</td>
+        <td>The century component of the year (i.e. year/100), as a 2-digit
+            number.  2017 yields 20 as <code>%C</code>.</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%d %e</td>
+        <td>The day of the month, as a number.<br>
+            <code>%d</code> keeps the leading zero (ranging from 01 to 31).<br>
+            <code>%e</code> space-pads the number (' 1' instead of '01').</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%D</td>
+        <td>Equivalent to <code>%m/%d/y</code>.  This is an ambiguous date
+        format, often only found inside the United States, and discouraged
+        all over.</td>
+        <td><!-- no flags --></td></tr>
+
+    <!-- %E not supported / ignored -->
+
+    <tr><td>%F</td>
+        <td>Equivalent to <code>%Y-%m-%d</code> (ISO-8601 date format).</td>
+        <td><!-- no flags --></td></tr>
+
+    <!-- %g %G not supported / exception -->
+
+    <tr><td>%H %k</td>
+        <td>The hour as a number, using a 24-hour clock.<br>
+            <code>%H</code> keeps the leading zero (ranging from 00 to 23).</br>
+            <code>%k</code> space-pads the number (' 3' instead of '03').</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%I %l</td>
+        <td>The hour as a number, using a 12-hour clock.<br>
+            <code>%I</code> keeps the leading zero (ranging from 01 to 12).</br>
+            <code>%l</code> space-pads the number (' 3' instead of '03').</td>
+        <td><!-- no flags --></td></tr>
+
+    <!-- %j not supported / exception -->
+
+    <tr><td>%m</td>
+        <td>The month as a number, ranging from 01 to 12.</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%M</td>
+        <td>The minute as a number, ranging from 00 to 60.<br>
+            (60 allows the presence of a leap second).</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%n</td>
+        <td>A newline character</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%O</td>
+        <td>The ordinal modifier.  See <a href="#strftime-modifiers">Modifiers</a>,
+            below, for more details.</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%p %P</td>
+        <td>AM/PM (<code>%p</code>) or am/pm (<code>%P</code>), based on the
+        time.  Noon is treated as PM and midnight as AM.</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%r</td>
+        <td>The time in a.m. or p.m. notation.  In the POSIX locale, this
+            is equivalent to <code>%I:%M:%S %p</code>.</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%R %T</td>
+        <td>The time in 24-hour notation.<br>
+            <code>%T</code> includes the seconds component; <code>%R</code>
+            does not.</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%s</td>
+        <td>The number of seconds since the UNIX epoch<br>
+            (Jan 1 1970 00:00:00 UTC).</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%t</td>
+        <td>A horizontal tab character.</td>
+        <td><!-- no flags --></td></tr>
+
+    <tr><td>%u %w</td>
+        <td>Weekday number.<br>
+            <code>%u</code> ranges from 1 to 7, starting with Monday.<br>
+            <code>%w</code> ranges from 0 to 6, starting with Sunday.</td>
+        <td><!-- no flags --></td></tr>
+
+    <!-- %U %V not supported / exception -->
+
+    <tr><td>%x</td>
+        <td>Preferred date-only representation.</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%X</td>
+        <td>Preferred time-only representation.</td>
+        <td><span class="flag">locale</span></td></tr>
+
+    <tr><td>%Y %y</td>
+        <td>The year as a number.<br>
+            <code>%Y</code> is the full (4-digit) year.<br>
+            <code>%y</code> just contains the last 2 digits (17 for 2017).</td>
+        <td><!-- no flags --></td></tr>
+
+    <!-- %z %Z not supported / exception -->
+  </tbody>
+  </table>
+
+  <h3 id="strftime-modifiers">Modifiers</h3>
+
+  <p>The <code>%O</code> format specifier adjusts the formatting logic to
+  print ordinals, per the current locale.  It is insufficient on its own,
+  because it needs an actual date/time component quantity to be useful.</p>
+
+  <p>For example, in the en_US locale, formatting the first day of the month
+  using <code>%Oe</code> appends the ordinal suffix <samp>st</samp> onto the
+  end of <code>%e</code>'s <samp> 1</samp>, yielding <samp> 1st</samp>.
+  Similar magic happens for <samp>2nd</samp>, <samp>3rd</samp>,
+  <samp>11th</samp>, etc.</p>
+
+</div>    </div>
+  </main>
+
+  <footer>
+    <div>
+      <p>Powered by <a href="http://verse.jameshunt.us" target="_blank">Verse</a></p>
+    </div>
+  </footer>
+</body>
+</html>
