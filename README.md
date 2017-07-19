@@ -1,6 +1,8 @@
 lens.js
 =======
 
+- [Website][website]
+
 Let's make web application development fun again, without drowning in a
 billion npm dependencies and three build systems.
 
@@ -102,4 +104,5 @@ before submitting a PR.
 
 Happy Hacking!
 
-[issues]: https://github.com/huntprod/lensjs/issues
+[website]: http://lensjs.com
+[issues]:  https://github.com/huntprod/lensjs/issues
