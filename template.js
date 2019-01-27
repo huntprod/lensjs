@@ -152,8 +152,12 @@
   if (typeof(jQuery) !== 'undefined') {
     jQuery.template = template;
 
-    jQuery.fn.template = function (name, data) {
-      this.html(template(name, data));
+    jQuery.fn.template = function (name, data, force) {
+      if (force) {
+        this.html(template(name, data));
+      } else {
+        window.patch(this[0], diff(this[0], $('<div>'+template(name, data)+'</div>')[0]));
+      }
     };
 
   } else if (typeof(window) !== 'undefined') {

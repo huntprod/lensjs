@@ -20,6 +20,13 @@
 
 <div class="hello">[[ include('hello-world'); ]]</div>
 <p>This is [[= _.project.name ]]</p>
+
+<form>
+  <p><input type="checkbox">
+     <label>&#x2190; should stay checked / unchecked through re-render</label></p>
+  <p><label for="name">Project: </label>
+     <input type="text" name="name" autocomplete="off" value="[[= _.project.name ]]"></p>
+</form>
 </script>
 
 <script type="text/html" id="template:hello-world">
@@ -28,6 +35,14 @@
 
 <script type="text/javascript">
 $(function () {
+  $(document.body).on('submit', 'form', function (event) {
+    event.preventDefault();
+    $('#main').template('main', {
+      project: {
+        name: $('input[name=name]').val()
+      }
+    });
+  });
   $('#main').template('main', {
     project: {
       name: 'lens.js'

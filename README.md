@@ -95,6 +95,12 @@ If you want to drop it, use `[[:` and `:]]`, like this:
 Which will but the `<ul>` up to the first `<li>`, each `</li>` up
 to the subsequent `<li>`, and but the `</ul>` to the last `</li>`.
 
+For MVC-style usage, the template renderer uses a simple DOM
+element diff/patch system to determine specifically what needs to
+change between what's been inserted into the live DOM already, and
+what the template render run spat out, so that incremental changes
+can be made to avoid flicker.
+
 Contributing
 ------------
 This code is licensed MIT.  Enjoy.
