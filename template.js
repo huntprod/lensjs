@@ -10,17 +10,7 @@
     return __templates[name](data || {});
   };
 
-  var compile = function (name) {
-    name = name.toString();
-    var script = document.getElementById('template:'+name);
-    if (!script) {
-      Lens.log.error('unable to find a <script> element with id="template:%s"', name);
-      return function () {
-        throw "Template {"+name+"} not found";
-      };
-    }
-
-    var src = script.innerHTML;
+  var parse = function (src) {
     var tokenizer = new RegExp('([\\s\\S]*?)\\[\\[([\\s\\S]*?)\\]\\]([\\s\\S]*)');
     var str = function (s) {
       if (!s) { return "''"; }
@@ -55,7 +45,21 @@
       src = tokens[3];
     }
 
-    code = code.join('');
+    return code.join('');
+  };
+
+  var compile = function (name) {
+    name = name.toString();
+    var script = document.getElementById('template:'+name);
+    if (!script) {
+      Lens.log.error('unable to find a <script> element with id="template:%s"', name);
+      return function () {
+        throw "Template {"+name+"} not found";
+      };
+    }
+
+    var code = parse(script.innerHTML);
+
     return function (_) {
       /* the output variable */
       var __ = '';
@@ -78,8 +82,6 @@
         maybe: function (a, b) {
           return typeof(a) !== 'undefined' ? a : b;
         },
-
-
 
         /* escapeHTML(x)
 
@@ -144,6 +146,8 @@
       return __;
     };
   };
+
+  window.parseTemplate = parse;
 
   if (typeof(jQuery) !== 'undefined') {
     jQuery.template = template;
