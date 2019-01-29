@@ -36,8 +36,8 @@
         ops.push({
           op:    SET_ATTRIBUTE,
           node:  a,
-          key:   attr,
-          value: _b[attr]
+          key:   _b[attr].nodeName,
+          value: _b[attr].nodeValue
         });
       }
     }
@@ -177,10 +177,9 @@
 
 
   window.patch = function (e, ops) {
-    console.log(ops);
     for (let i = 0; i < ops.length; i++) {
       switch (ops[i].op) {
-        case SET_ATTRIBUTE:    ops[i].node.attributes[ops[i].key] = ops[i].value;             break;
+        case SET_ATTRIBUTE:    ops[i].node.setAttribute(ops[i].key, ops[i].value);            break;
         case REMOVE_ATTRIBUTE: ops[i].node.removeAttribute(ops[i].key);                       break;
         case SET_PROPERTY:     /* FIXME needs implemented! */                                 break;
         case REMOVE_PROPERTY:  /* FIXME needs implemented! */                                 break;
@@ -189,9 +188,30 @@
         case REMOVE_CHILD:     ops[i].node.removeChild(ops[i].child);                         break;
         case REPLACE_TEXT:     ops[i].node.textContent = ops[i].with;                         break;
         default:
-          console.log('unrecognized patch op %d for ', ops[i].op, op);
+          console.log('unrecognized patch op %d for ', ops[i].op, ops[i]);
           break;
       }
     }
+  };
+
+
+
+
+  window.explainPatch = function (ops) {
+    var l = [];
+    for (let i = 0; i < ops.length; i++) {
+      switch (ops[i].op) {
+        case SET_ATTRIBUTE:    l.push(['SET_ATTRIBUTE',    ops[i].node, ops[i].key+'='+ops[i].value]); break;
+        case REMOVE_ATTRIBUTE: l.push(['REMOVE_ATTRIBUTE', ops[i].node, ops[i].key]);                  break;
+        case SET_PROPERTY:     l.push(['SET_PROPERTY',     'FIXME']);                                  break;
+        case REMOVE_PROPERTY:  l.push(['REMOVE_PROPERTY',  'FIXME']);                                  break;
+        case REPLACE_NODE:     l.push(['REPLACE_NODE',     ops[i].node, { with: ops[i].with }]);       break;
+        case APPEND_CHILD:     l.push(['APPEND_CHILD',     ops[i].node, { child: ops[i].child }]);     break;
+        case REMOVE_CHILD:     l.push(['REMOVE_CHILD',     ops[i].node, { child: ops[i].child }]);     break;
+        case REPLACE_TEXT:     l.push(['REPLACE_TEXT',     ops[i].node, { with: ops[i].with }]);       break;
+        default:               l.push(['**UNKNOWN**',      ops[i]]);                                   break;
+      }
+    }
+    return l;
   };
 })(window, document);

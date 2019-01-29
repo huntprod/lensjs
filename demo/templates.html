@@ -7,6 +7,10 @@
   </style>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="../lens.js"></script>
+  <style type="text/css">
+    .foo { color: blue; font-weight: bold; }
+    .bar { color: green; }
+  </style>
 </head>
 <body>
 
@@ -24,7 +28,8 @@
 <form>
   <p><input type="checkbox">
      <label>&#x2190; should stay checked / unchecked through re-render</label></p>
-  <p><label for="name">Project: </label>
+  <!-- this is a comment ... -->
+  <p class="[[ if (_.project.name == 'FOO') { ]]foo[[ } else { ]]bar[[ } ]]"><label for="name">Project: </label>
      <input type="text" name="name" autocomplete="off" value="[[= _.project.name ]]"></p>
 </form>
 </script>
