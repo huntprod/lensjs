@@ -367,11 +367,12 @@ var Lens = {};
     jQuery.template = template;
 
     jQuery.fn.template = function (name, data, force) {
-      if (force) {
+      if (force || this.length == 0) {
         this.html(template(name, data));
       } else {
         window.patch(this[0], diff(this[0], $('<div>'+template(name, data)+'</div>')[0]));
       }
+      return this;
     };
 
   } else if (typeof(window) !== 'undefined') {
