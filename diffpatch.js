@@ -12,8 +12,15 @@
      (potentially empty) patch op list. */
   var diffa = function (a, b) {
     const ops = [];
-    const { attributes: _a } = a;
-    const { attributes: _b } = b;
+    const _a  = {};
+    const _b  = {};
+
+    for (let i = 0; i < a.attributes.length; i++) {
+      _a[a.attributes[i].nodeName] = a.attributes[i].nodeValue;
+    }
+    for (let i = 0; i < b.attributes.length; i++) {
+      _b[b.attributes[i].nodeName] = b.attributes[i].nodeValue;
+    }
 
     /* if the attribute is only defined in (a), then
        it has been removed in (b) and should be patched
@@ -23,7 +30,7 @@
         ops.push({
           op:    REMOVE_ATTRIBUTE,
           node:  a,
-          key:   _a[attr].nodeName
+          key:   attr,
         });
       }
     }
@@ -36,51 +43,8 @@
         ops.push({
           op:    SET_ATTRIBUTE,
           node:  a,
-          key:   _b[attr].nodeName,
-          value: _b[attr].nodeValue
-        });
-      }
-    }
-
-    return ops;
-  };
-
-  /* diff the event handlers; NOT CURRENTLY IMPLEMENTED. */
-  var diffev = function (a, b) {
-    return [];
-  };
-
-  /* diff the PROPERTIES  of two nodes, and return a
-     (potentially empty) patch op list. */
-  var diffp = function (a, b) {
-    return []; /* FIXME what is a property? */
-    const ops = [];
-    const { properties: _a } = a;
-    const { properties: _b } = b;
-
-    /* if the property is only defined in (a), then
-       it has been removed in (b) and should be patched
-       as a REMOVE_PROPERTY.  */
-    for (let prop in _a) {
-      if (!(prop in _b)) {
-        ops.push({
-          op:    REMOVE_PROPERTY,
-          node:  a,
-          key:   prop
-        });
-      }
-    }
-
-    /* if the property is only defined in (b), or is
-       defined in both with different values, patch as
-       a SET_PROPERTY to get the correct value. */
-    for (let prop in _b) {
-      if (!(prop in _a) || _a[prop] !== _b[prop]) {
-        ops.push({
-          op:    SET_PROPERTY,
-          node:  a,
-          key:   prop,
-          value: _b[prop]
+          key:   attr,
+          value: _b[attr]
         });
       }
     }
@@ -90,11 +54,9 @@
 
   var diffe = function (a, b) {
     if (a.localName === b.localName) {
-      return []
-             .concat(diffa(a, b))
-             .concat(diffev(a, b))
-             .concat(diffp(a, b))
+      return diffa(a, b);
     }
+    return null;
   };
 
   var difft = function (a, b) {
@@ -120,6 +82,9 @@
     }
     if (a.nodeType == Node.TEXT_NODE) {
       return difft(a, b);
+    }
+    if (a.nodeType == Node.COMMENT_NODE) {
+      return null;
     }
 
     console.log('unrecognized a type %s', a.nodeType);
