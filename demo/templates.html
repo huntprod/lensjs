@@ -31,6 +31,7 @@
   <!-- this is a comment ... -->
   <p class="[[ if (_.project.name == 'FOO') { ]]foo[[ } else { ]]bar[[ } ]]"><label for="name">Project: </label>
      <input type="text" name="name" autocomplete="off" value="[[= _.project.name ]]"></p>
+  [[ if (_.project.name == 'SELECT') { ]]<select><option>one</option><option>two</option></select>[[ } ]]
 </form>
 </script>
 
