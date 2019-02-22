@@ -43,7 +43,7 @@
 $(function () {
   $(document.body).on('submit', 'form', function (event) {
     event.preventDefault();
-    $('#main').template('main', {
+    $('#main').template(undefined, {
       project: {
         name: $('input[name=name]').val()
       }
