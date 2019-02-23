@@ -67,11 +67,20 @@
   Lens provides you one, with the same semantics as the (POSIX-compliant)
   GNU libc implementation.</p>
 
-  <pre><code>Lens.strftime("%a, %b %d %Y at %I:%M %P", new Date());
+  <pre><code>Lens.<em>strftime("%a, %b %d %Y at %I:%M %P", new Date())</em>;
     // something like "Tue, Jul 18 2017 at 9:20 am"</code></pre>
 
   <p>Read more in the <a href="/docs#strftime">documentation</a>.</p>
 
+  <h2>Formatting... Pretty Much Anything!</h2>
+
+  <p>Do you miss <code>sprintf()</code> too?  Lens has just thing for
+  you&hellip; You guessed it; it's an implementation of POSIX-compliant,
+  libc-familiar string formatting!</p>
+
+  <pre><code>$field.val(<em>sprintf("%s: %d/%d", thing, n, total)</em>);</code></pre>
+
+  <p>Read more in the <a href="/docs#sprintf">documentation</a>.</p>
 </div></div>
   </main>
 

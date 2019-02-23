@@ -204,4 +204,174 @@ format: html
   Similar magic happens for <samp>2nd</samp>, <samp>3rd</samp>,
   <samp>11th</samp>, etc.</p>
 
+  <h2 id="sprintf">String Formatting - Good Ol' <tt>sprintf()</tt></h2>
+
+  <p>Javascript has also lacked a <code>sprintf()</code> call for too long.
+  Lens helps out here too, with its own implementation that attempts to adhere
+  to POSIX.</p>
+
+  <pre><code>Lens.sprintf("%s: [flags %#04x] user %d (%s) connecting...",
+             system, flags, user.id, user.name);</code></pre>
+
+  <p>The format string is made up of both literal text and <em>conversion
+  specifications</em>, which start with a literal <code>%</code> and ends
+  with a <em>conversion specifier.</em></p>
+
+  <p>The valid conversion specifiers are:</p>
+
+  <table class="sprintf specifiers definitions">
+  <tbody>
+    <tr><td>%</td>
+        <td>Emits a literal '%' character</td>
+        <td></td></tr>
+
+    <tr><td>d i</td>
+        <td>Signed decimal notation.  The argument is converted into an
+            integer and formatted in base 10.</td>
+        <td><span class="flag">numeric</span></td></tr>
+
+    <tr><td>u</td>
+        <td>Unsigned decimal notation.  The argument is converted into an
+            integer (modulo the length modifier) and formatted in base 10.
+            <br>
+            <code>%hhu</code> is radix-256 (8-bit).<br>
+            <code>%hu</code> is radix-65536 (16-bit).<br>
+            <code>%u</code> is a 32-bit radix (~4bn).<br>
+            <code>%lu</code> is a 64-bit radix.<br>
+            <code>%llu</code> is a 128-bit radix.</td>
+        <td><span class="flag">numeric</span></td></tr>
+
+    <tr><td>o</td>
+        <td>Unsigned octal notation.  The argument is converted into an
+            integer and formatted in base 8.</td>
+        <td><span class="flag">numeric</span></td></tr>
+
+    <tr><td>x X</td>
+        <td>Unsigned hexadecimal notation.  The argument is converted into
+            an integer and formatted in base 16.<br>
+            <code>%x</code> uses <code>a-f</code> for digit values 10 - 15.<br>
+            <code>%X</code> uses <code>A-F</code>, instead.</td>
+        <td><span class="flag">numeric</span></td></tr>
+
+    <tr><td>e E</td>
+        <td>Signed floating-point in scientific notation.<br>
+            <code>%e</code> uses a lower case 'e' notation.<br>
+            <code>%E</code> uses an upper case 'E' notation.</td>
+        <td><span class="flag">numeric</span></td></tr>
+
+    <tr><td>f F g G</td>
+        <td>Signed floating-point in natural notation.<br>
+            These are all interchangeable, for compatibility's sake.</td>
+        <td><span class="flag">numeric</span></td></tr>
+
+    <tr><td>c</td>
+        <td>Treat the numeric argument as an ASCII (8-bit) code point,
+            and render the corresponding character glyph.</td>
+        <td></td></tr>
+
+    <tr><td>s</td>
+        <td>A string.</td>
+        <td></td></tr>
+  </tbody>
+  </table>
+
+  <p>The following conversion specifiers are <strong>not</strong> supported
+  by the current implementation: <code>a</code>, <code>A</code>.
+
+  <h3 id="sprintf-flags">Flag Directives</h3>
+
+  <p>Immediately following the opening <code>%</code>, you can put any
+  number (including zero) of the following flags:</p>
+
+  <table class="sprintf flags definitions">
+  <tbody>
+    <tr><td>#</td>
+        <td>Convert the argument to its <em>alternate form</em></td></tr>
+
+    <tr><td>0</td>
+        <td>Zero-pad the argument on the left (instead of blanks) to hit the
+            desired field width.  Ignored if <code>-</code> is also set.
+            </td></tr>
+
+    <tr><td>-</code></td>
+        <td>Left-justify the field value within the field width.  This only
+            matters if the argument does not fill up the entirety of the
+            desired field width.  Takes precedence over <code>0</code>.
+            </td></tr>
+
+    <tr><td><xmp>' '</xmp></td>
+        <td>(a blank space)<br>A blank should be left before a positive number.</td></tr>
+
+    <tr><td>+</td>
+        <td>Always place a sign character, either <code>+</code> or
+            <code>-</code> before a numeric quantity.  Ignored for the
+            <code>o</code>, <code>u</code>, <code>x</code>, or
+            <code>X</code> conversion specifiers.
+            </td></tr>
+  </tbody>
+  </table>
+
+  <p>The <code>'</code> flag, for using thousands separators, is not
+  supported in this implementation.</p>
+
+  <h3 id="sprintf-width-and-precision">Field Widths and Precision</h3>
+
+  <p>After the flags, a field width can be given, starting with a non-zero
+  digit (to avoid confusion with the <code>0</code> flag).  If the formatted
+  value takes up fewer characters than this, it will be padded on the left
+  with spaces (or on the right, if the left-justify <code>-</code> flag has
+  been set).</p>
+
+  <p>For example, to print the variable <code>count</code> and
+  <strong>always</strong> take up 10 characters in the string:</p>
+
+  <pre><code>sprintf("%10d", count);</code></pre>
+
+  <p>Following the width, you may specify a <em>precision</em>, separated
+  with a dot (<code>.</code>).  This precision value determines the minimum
+  number of digits rendered for the integer conversion specifiers
+  (<code>d</code>, <code>i</code>, <code>u</code>, <code>o</code>,
+  <code>x</code>, and <code>X</code>), and the number of digits to appear
+  after the decimal point in the floating point specifiers.  For the
+  <code>s</code> string conversion specifier, the precision limits the number
+  of characters to be rendered from the argument string.</p>
+
+  <h3 id="sprintf-length-modifiers">Length Modifiers</h3>
+
+  <p>The unsigned integer conversion specifiers (<code>u</code>,
+  <code>o</code>, <code>x</code>, and <code>X</code>) all treat their
+  arguments modulo some bit radix.  You can adjust this radix through the
+  use of <em>length modifiers</em>, which map to the powers-of-two integer
+  sizes present in C!</p>
+
+  <table class="sprintf length-modifiers definitions">
+  <tbody>
+    <tr><td>hh</td>
+        <td>Treat the argument as an unsigned, 8-bit quantity, in the range
+        (0 ... 255).</td></tr>
+
+    <tr><td>h</td>
+        <td>Treat the argument as an unsigned, 16-bit quantity, in the range
+        (0 ... 65535).</td></tr>
+
+    <tr><td>l</td>
+        <td>Treat the argument as an unsigned, 64-bit quantity, in the range
+        (0 ... 1.84467441 ✕ 10<sup>19</sup>), give or take.</td></tr>
+
+    <tr><td>ll</td>
+        <td>Treat the argument as an unsigned, 128-bit quantity, in the
+        range (0 ... 3.40282367 ✕ 10<sup>38</sup>), approximately.</td></tr>
+
+  </tbody>
+  </table>
+
+  <p>For example, the following calls should be equivalent:</p>
+
+  <pre><code>var a = sprintf("%d", value % 256);
+var b = sprintf("%hhu", value);</code></pre>
+
+  <p>The following length modifiers are not supported by this
+  implementation: <code>L</code>, <code>q</code>, <code>j</code>,
+  <code>z</code>, and <code>t</code>.
+
 </div>

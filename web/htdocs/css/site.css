@@ -123,6 +123,11 @@ body > main p strong,
 body > main p b {
   font-weight: bold;
 }
+body > main sup {
+  font-size: 60%;
+  position: relative;
+  top: -0.85em;
+}
 
 body > main ul,
 body > main ol {
@@ -211,8 +216,12 @@ body > main table.definitions tr > td:first-child {
   font-weight: bold;
   width: 1ex; /* force "%a %A" to line wrap */
 }
+body > main table.definitions tr > td:first-child xmp {
+  white-space: pre;
+}
 
-body > main table.strftime span.flag {
+body > main table.strftime span.flag,
+body > main table.sprintf span.flag {
   border-radius: 3px;
   font-size: 10pt;
   padding: 4px;
