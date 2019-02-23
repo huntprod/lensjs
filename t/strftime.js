@@ -3,7 +3,7 @@
   QUnit.test("singular format specifiers", function (Ω) {
     var t1 = new Date(2001, 1 /* Feb */, 03, 04, 05, 06); /* Saturday */
     var t2 = new Date(2001, 9 /* Oct */, 28, 23, 58, 59); /* Sunday   */
-    tests = [
+    var tests = [
       { t: t1, f: '%%', e: '%', m: '%% = literal percent sign.' },
 
       { t: t1, f: '%a', e: 'Sat', m: '%a = abbreviated weekday name (per locale).' },
