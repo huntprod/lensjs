@@ -438,4 +438,13 @@
          given Javascript built-in precision. */
     ]);
   });
+
+  QUnit.test("non-standard conversion: %j", function (Ω) {
+    validate(Ω, [
+      { f: '%j',    a: [{foo:'bar'}], e: '{"foo":"bar"}' },
+      { f: '%.2j',  a: [{foo:'bar'}], e: '{"foo":"bar"}' },
+      { f: '%#j',   a: [{foo:'bar'}], e: '{\n  "foo": "bar"\n}' },
+      { f: '%#.4j', a: [{foo:'bar'}], e: '{\n    "foo": "bar"\n}' }
+    ]);
+  });
 })();

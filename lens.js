@@ -696,6 +696,18 @@ var Lens = {};
             s += '(!missing)';
           }
           break;
+
+        case 106: /* j - NON-STANDARD json conversion */
+          if (n < arguments.length) {
+            s += JSON.stringify(arguments[n], undefined, alt ? (prec > 0 ? prec : 2) : 0);
+          } else {
+            s += '(!missing)';
+          }
+          break;
+
+        default:
+          s += '(!unrecognized)';
+          break;
         }
       } else {
         s += fmt[i];

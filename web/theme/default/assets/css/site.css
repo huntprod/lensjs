@@ -112,6 +112,8 @@ body > main a {
 
 body > main aside em,
 body > main aside i,
+body > main table em,
+body > main table i,
 body > main p em,
 body > main p i {
   font-style: italic;
@@ -119,6 +121,8 @@ body > main p i {
 
 body > main aside strong,
 body > main aside b,
+body > main table strong,
+body > main table b,
 body > main p strong,
 body > main p b {
   font-weight: bold;
@@ -228,6 +232,9 @@ body > main table.sprintf span.flag {
   color: white;
   background-color: indigo;
   font-family: monospace;
+}
+body > main table span.flag.custom {
+  background-color: crimson;
 }
 
 body > main #highlight {

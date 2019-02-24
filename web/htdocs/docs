@@ -301,11 +301,22 @@
     <tr><td>s</td>
         <td>A string.</td>
         <td></td></tr>
+
+    <tr><td>j</td>
+        <td>Convert the argument into a JSON string.  The <em>alternate
+        representation</em> flag formats the resulting JSON with newlines
+        and indenting whitespace.  The <em>precision</em> value sets the
+        indent level.</td>
+        <td><span class="flag custom">nonstandard</span></td></tr>
   </tbody>
   </table>
 
   <p>The following conversion specifiers are <strong>not</strong> supported
   by the current implementation: <code>a</code>, <code>A</code>.
+
+  <p><strong>Note</strong> that the <code>j</code> conversion specifier is
+  <em>non-standard</em>, but does not currently conflict with any known
+  standard.</p>
 
   <h3 id="sprintf-flags">Flag Directives</h3>
 
