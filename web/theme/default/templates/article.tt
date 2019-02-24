@@ -1,5 +1,5 @@
 [% dometa = 'yes' %]
-<article data-dated="[% date.format(article.timestamp, "%Y-%m-%d") %]">
+<article data-dated="[% strftime(article.timestamp, "%Y-%m-%d") %]">
   <span class="time">[% article.attrs.dated %]</span>
   <h2>[% article.attrs.title %][% if article.attrs.subtitle %]<p>[% article.attrs.subtitle %]</p>[% end %]</h2>
   [% article.attrs.body %]

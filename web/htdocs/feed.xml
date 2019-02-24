@@ -8,7 +8,7 @@
   <id>http://lensjs.jameshunt.us</id>
   <author><name>James Hunt</name></author>
   <generator uri="http://verse.jameshunt.us/">Verse</generator>
-<entry>
+  <entry>
     <title><![CDATA[Introducing Lens.js]]></title>
     <link href="/writings/first-breath.html?rss" />
     <id>/writings/first-breath.html</id>
@@ -43,4 +43,7 @@ code.</p>
 
 <p>To get started using <strong>lens.js</strong>, check out the
 <a href="/docs">documentation</a>.</p>]]></content>
-  </entry></feed>
+  </entry>
+
+</feed>
+

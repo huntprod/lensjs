@@ -30,7 +30,8 @@
   </header>
 
   <main>
-    <div><div id="docs">
+    <div>
+<div id="docs">
   <h2 id="template">Templating</h2>
 
   <p>Sometimes you need to draw things in HTML, with data from REST calls,

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
 <meta name="generator" content="verse" />
 
-[% if dometa %]
+[%- if dometa %]
 <meta name="twitter:card"       content="summary">
 [% if site.id.twitter %]
 <meta name="twitter:site"       content="@[% site.id.twitter %]">
@@ -30,10 +30,10 @@
 
 <title>[% article.attrs.title %] - [% site.title %]</title>
 
-[% else %]
+[%- else %]
 <title>[% site.title %]</title>
 
-[% end %]
+[%- end %]
 <link rel="stylesheet" href="[% site.url %]/css/site.css">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,700,900">
 <link rel="alternate home" type="application/rss+xml" title="[% site.title %] - RSS feed" href="[% site.url %]/feed.xml">
@@ -59,9 +59,7 @@
   </header>
 
   <main>
-    <div>
-      [% content %]
-    </div>
+    <div>[% content %]</div>
   </main>
 
   <footer>
