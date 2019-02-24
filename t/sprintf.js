@@ -420,7 +420,7 @@
     ]);
   });
 
-  QUnit.test("field length  modifiers", function (Ω) {
+  QUnit.test("field length modifiers", function (Ω) {
     validate(Ω, [
       /* 8-bit */
       { f: '|%hhu|', a:[ 1], e: '|1|' },
