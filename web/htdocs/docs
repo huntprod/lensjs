@@ -35,7 +35,7 @@
   <h2 id="template">Templating</h2>
 
   <p>Sometimes you need to draw things in HTML, with data from REST calls,
-  or Javascript computations.  Templating via the <code>template()</code>
+  or Javascript computations.  Templating is done via the <code>template()</code>
   function.  Templates are defined inside of <code>&lt;script&gt;</code>
   tags that have a <code>type</code> attribute of <code>text/html</code>.
   These script are inert; the browser will just treat them as a handy
@@ -65,7 +65,7 @@
   name: 'James'
 });</code></pre>
 
-  <p>When the <em>hello</em> template execute, <code>_</code> will be bound
+  <p>When the <em>hello</em> template executes, <code>_</code> will be bound
   to the second argument passed, giving <code>_.name</code> the value
   <code>"James"</code>.  The template will populate our <code>#main</code>
   element with the following HTML:
@@ -76,6 +76,58 @@
   name of our template, which will be prefixed with <code>template:</code>
   and used to find the <code>&lt;script&gt;</code> tag that contains our
   template source.</aside>
+
+  <p>Subsequent calls to <code>template()</code> against the same element
+  exhibit some useful properties.  If you omit all of the arguments, Lens will
+  re-render the last template it used for the target DOM element, and the last
+  data argument it was passed.  This lets you do some interesting data binding
+  logic, vis:</p>
+
+  <pre><code>var groceries = [
+  'milk',
+  'eggs',
+  'bread'
+];
+$('#main').template('list', { things: groceries });
+
+/* elsewhere... */
+groceries.push('PIE');
+<em>$('#main').template();</em></code></pre>
+
+  <p>When this behavior is activated, Lens also performs <em>DOM-wise patching</em>,
+  in which the newly rendered DOM sub-tree is compared to the live DOM sub-tree
+  (of the target) and a minimal set of <em>change operations</em> is carried out to
+  bring the live DOM in line with the desired render output.  That means that
+  if our <code>list</code> template from the above example looks like this:</p>
+
+  <pre><code>&lt;ul&gt;
+<em>[[ for (var i = 0; i &lt; _.things.length; i++) { ]]</em>
+  &lt;li&gt;<em>[[= _.things[i] ]]</em>&lt;/li&gt;
+<em>[[ } ]]</em>
+&lt;/ul&gt;</code></pre>
+
+  <p>The first render would create a single <code>UL</code> unordered list with
+  three <code>LI</code> list item children.  During the second render, Lens would
+  notice that since the order of the <code>_.things</code> array has not changed,
+  only the new (fourth) <code>LI</code> list item ("PIE") needs appended to the
+  unordered list.  This helps to cut down on DOM flicker, and minimizes or removes
+  the need to re-attach event handlers, etc.</p>
+
+  <p>It is important to keep in mind that this <em>memory</em> of which template
+  and what data were used to render are kept on a <strong>per-target</strong> basis.
+  This allows you to do this:</p>
+
+  <pre><code>$('#main').template('dashboard', data);
+$('#nav').template('navigation');
+
+$('#main').template();</code></pre>
+
+  <p>without issue.</p>
+
+  <p>Rendering a different template to the same target does <em>not</em> engage
+  the DOM-wise patch engine; instead, the target container element will be cleared
+  and completely re-drawn.  This is also what happens on the initial render of
+  a previously-unseen target.</p>
 
   <h2 id="strftime">Formatting Dates and Times</h2>
 
